@@ -15,7 +15,8 @@ boxes = cross(rows, cols)
 row_units = [cross(r, cols) for r in rows]
 column_units = [cross(rows, c) for c in cols]
 square_units = [cross(rs, cs) for rs in ("ABC", "DEF", "GHI") for cs in ("123", "456", "789")]
-unitlist = row_units + column_units + square_units
+diagonal_units = [['A1', 'B2', 'C3', 'D4', 'E5', 'F6', 'G7', 'H8', 'I9'], ['I1', 'H2', 'G3', 'F4', 'E5', 'D6', 'C7', 'B8', 'A9']]
+unitlist = row_units + column_units + square_units + diagonal_units
 units = dict((s, [u for u in unitlist if s in u]) for s in boxes)
 peers = dict((s, set(sum(units[s],[]))-set([s])) for s in boxes)
 
@@ -60,7 +61,6 @@ def naked_twins(values):
     return values
         
 
-    
 def grid_values(grid):
     """
     Convert grid into a dict of {square: char} with '123456789' for empties.
@@ -95,7 +95,7 @@ def eliminate(values):
     for box in solved_values:
         for peer in peers[box]:
             #values[peer] = values[peer].replace(values[box], "")
-            assign_value(values, peer, "")
+            assign_value(values, peer, values[peer].replace(values[box], ""))
     return values
 
 
@@ -167,6 +167,15 @@ def solve(grid):
     Returns:
         The dictionary representation of the final sudoku grid. False if no solution exists.
     """
+    
+    values = grid_values(grid)
+
+    values = eliminate(values)
+    values = only_choice(values)
+    values = reduce_puzzle(values)
+    valeus = search(values)
+    
+    return values
 
 
 if __name__ == '__main__':
