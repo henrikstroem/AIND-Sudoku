@@ -44,18 +44,27 @@ def naked_twins(values):
     # Find all instances of naked twins
     
     all_naked_twins = []
-    
+
+    # Iterate over all units.
     for unit in unitlist:
+        # Boxes with exactly two values are candidates for naked twins
         twin_candidates = [values[box] for box in unit if len(values[box]) == 2]
+        # For actual naked twins, there must be exactly two boxes with the same value among the candidates.
         naked_twins = list(set([candidate for candidate in twin_candidates if twin_candidates.count(candidate) == 2]))
+        # Add to list of naked twins and units. Including units makes it easy to iterate over the list later.
         all_naked_twins.append((naked_twins, unit))
     
     # Eliminate the naked twins as possibilities for their peers
     
+    # Iterate over our know naked twins and their units.
     for naked_twins, unit in all_naked_twins:
+        # There might be more than one pair of naked twins in a unit.
         for naked_twin in naked_twins:
+            # Iterate over all boxes in the unit.
             for box in unit:
+                # Make sure not to eliminate the naked twins themselves.
                 if not values[box] == naked_twin:
+                    # Remove the naked twins values from all other boxes.
                     assign_value(values, box, values[box].translate({ord(item): None for item in naked_twin}))
                     
     return values
@@ -170,9 +179,8 @@ def solve(grid):
     
     values = grid_values(grid)
 
-    values = eliminate(values)
-    values = only_choice(values)
     values = reduce_puzzle(values)
+    values = naked_twins(values)
     valeus = search(values)
     
     return values

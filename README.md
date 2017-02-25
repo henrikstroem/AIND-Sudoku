@@ -3,11 +3,11 @@
 
 # Question 1 (Naked Twins)
 Q: How do we use constraint propagation to solve the naked twins problem?  
-A: *Student should provide answer here*
+A: Constraint propagation is about assigning values, which satisfies or does not break some condition or constraint. In naked twins, we use the knowledge that a particular value can only be assigned to one particular box in any given unit. When we find a naked twins couple, we know the possible values in these naked twins can not be assigned to any other box in the unit. Thus we can remove these values as possibilities from the other units.
 
 # Question 2 (Diagonal Sudoku)
 Q: How do we use constraint propagation to solve the diagonal sudoku problem?  
-A: *Student should provide answer here*
+A: The diagonal sudoku problem is solved by changing a constraint, namely the list of units which must satisfy the "uniqueness constraint". 
 
 ### Install
 
