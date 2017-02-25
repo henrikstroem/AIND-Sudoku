@@ -1,3 +1,5 @@
+import string
+
 assignments = []
 
 
@@ -40,10 +42,23 @@ def naked_twins(values):
 
     # Find all instances of naked twins
     
+    all_naked_twins = []
+    
     for unit in unitlist:
-        print(unit)
+        twin_candidates = [values[box] for box in unit if len(values[box]) == 2]
+        naked_twins = list(set([candidate for candidate in twin_candidates if twin_candidates.count(candidate) == 2]))
+        all_naked_twins.append((naked_twins, unit))
     
     # Eliminate the naked twins as possibilities for their peers
+    
+    for naked_twins, unit in all_naked_twins:
+        for naked_twin in naked_twins:
+            for box in unit:
+                if not values[box] == naked_twin:
+                    assign_value(values, box, values[box].translate({ord(item): None for item in naked_twin}))
+                    
+    return values
+        
 
     
 def grid_values(grid):
