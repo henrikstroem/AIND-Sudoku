@@ -3,11 +3,25 @@
 
 # Question 1 (Naked Twins)
 Q: How do we use constraint propagation to solve the naked twins problem?  
-A: Constraint propagation is about assigning values, which satisfies or does not break some condition or constraint. In naked twins, we use the knowledge that a particular value can only be assigned to one particular box in any given unit. When we find a naked twins couple, we know the possible values in these naked twins can not be assigned to any other box in the unit. Thus we can remove these values as possibilities from the other units.
+A: 
+
+Constraint propagation is about assigning values, which satisfies or does not break some constraint. We can also think of this constraint as a condition or rule.
+
+In Sudoku, the rule that a value must appear exactly once in each unit is a constraint that we can use to limit the possible positions of values, using the naked twins strategy.
+
+The naked twins strategy detects pairs of boxes which contain only the same two elements, e.g. in the unit A1..A9, box A1 and box A6 could contain only the possible values 2 and 3. In this example, 2 and 3 must be in either A1 or A6, because these boxes have no other possible values, due to the constraint mentioned above. We can use this knowledge to remove these two values from the remaining boxes in the unit, so they no longer need to be considered for these other boxes.
+
+This is what we are doing with the naked twins strategy: using a known constraint to assign new values to boxes other than the naked twins, that share possible values with the naked twins. In this case, the new values are the reduced set of possible values available for that particular box.
 
 # Question 2 (Diagonal Sudoku)
 Q: How do we use constraint propagation to solve the diagonal sudoku problem?  
-A: The diagonal sudoku problem is solved by changing a constraint, namely the list of units which must satisfy the "uniqueness constraint". 
+A: 
+
+Among the constraints for the Sudoku game is the set of units that we consider when solving the game puzzle.
+
+With the diagonal Sudoku game, we are adding to these constraints by adding two new units, namely the diagonals of the game grid, i.e. A1, B2, C3 .. H8, I9 and A9, B8, C7 .. H2, I1. 
+
+Note that nothing else changes about the game. We use the exact same strategies as before to solve the Sudoku puzzle, but we apply them to a new set of constraints, that contains the two new diagonal units, so every time we do for example a naked twins elimination, we do this on the diagonal units as well.
 
 ### Install
 
