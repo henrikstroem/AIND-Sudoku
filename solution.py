@@ -183,7 +183,7 @@ def solve(grid):
 
     values = reduce_puzzle(values)
     values = naked_twins(values)
-    valeus = search(values)
+    values = search(values)
     
     return values
 
