@@ -129,6 +129,16 @@ def only_choice(values):
 
 
 def reduce_puzzle(values):
+    """Repeatedly call eliminate() and only_choice() to reduce the sudoku puzzle.
+
+    When no futher reduction is possible using these strategies, the reduced 
+    sudoku puzzle is returned.
+
+    Input: Sudoku in dictionary form.
+    Output: Resulting Sudoku in dictionary form after reduction, or false if the
+            sudoku is invalid.
+    """
+
     stalled = False
     while not stalled:
         # Check how many boxes have a determined value
